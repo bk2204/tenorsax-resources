@@ -1,0 +1,167 @@
+.do tenorsax ext 1
+.namespace d http://docbook.org/ns/docbook
+.namespace rdf http://www.w3.org/1999/02/22-rdf-syntax-ns#
+.namespace cc http://creativecommons.org/ns#
+.mso roff-cleanup
+.mso licenses
+.de _setup
+.als _nf_internal nf
+.ie ''\\$2' .start "d:\\$1" version=5.0
+.el .start "d:\\$1" version=5.0 "xml:lang=\\$2"
+..
+.de article
+._setup article "\\$2"
+.ds type article
+..
+.de poem
+._setup article "\\$2"
+.ds type poem
+.als nf verse
+..
+.de book
+._setup book "\\$2"
+.ds type book
+..
+.als essay article
+.als story article
+.de done
+.end
+..
+.de author
+.start d:author
+.ie '\\$2'C' .ds _author_tag d:orgname
+.el .ds _author_tag d:personname
+.start \\*[_author_tag]
+\\$1
+.end \\*[_author_tag]
+.end d:author
+..
+.de info
+.if !\\n[_in_info] \{
+.start d:info
+.nr _in_info 1
+.\}
+..
+.de endinfo
+.if \\n[_in_info] \{
+.endmetadata
+.end d:info
+.nr _in_info 0
+.\}
+..
+.de au
+.info
+.author "\\$1" "\\$2"
+..
+.de title
+.start d:title
+\\$1
+.end d:title
+..
+.de metadata
+.info
+.if !\\n[_in_metadata] \{
+.start rdf:RDF
+.start rdf:Description rdf:about=
+.\}
+..
+.de _license_if_true
+.if !'\\$1'' \\{
+._license_to_url "\\$1" _license_url
+.start rdf:li "rdf:resource=\\*[_license_url]"
+.end rdf:li
+.\\}
+..
+.de license
+.metadata
+.start cc:license
+.start rdf:Alt
+._license_if_true "\\$1"
+._license_if_true "\\$2"
+._license_if_true "\\$3"
+._license_if_true "\\$4"
+._license_if_true "\\$5"
+._license_if_true "\\$6"
+._license_if_true "\\$7"
+._license_if_true "\\$8"
+._license_if_true "\\$9"
+.end rdf:Alt
+.end cc:license
+..
+.de endmetadata
+.if \\n[_in_metadata] \{
+.end rdf:Description
+.end rdf:RDF
+.\}
+..
+.\" Takes one of B (bulleted) or N (numbered).
+.de list
+.endinfo
+.ie '\\$1'B' .start d:itemizedlist
+.el .start d:orderedlist
+..
+.de endlist
+.enditem
+.end
+..
+.de item
+.enditem
+.start d:listitem
+.start d:para
+.ie !'\\$1'' \{
+\\$1
+.end d:para
+.end d:listitem
+.\}
+.el .nr li 1
+..
+.de enditem
+.if \\n(li \{
+.end d:para
+.end d:listitem
+.\}
+.nr li 0
+..
+.de para
+.endinfo
+.endpara
+.start d:para
+.nr pa 1
+..
+.de endpara
+.if \\n(pa .end d:para
+.nr pa 0
+..
+.de pp
+.para
+..
+.de lp
+.para
+..
+.de verse
+.endinfo
+._nf_internal
+.start d:literallayout xml:space=preserve class=normal
+..
+.de endverse
+.end d:literallayout
+..
+.de b
+.start d:emphasis role=strong
+\\$1
+.end d:emphasis
+..
+.de i
+.start d:emphasis
+\\$1
+.end d:emphasis
+..
+.de q
+.start d:quote
+\\$1\&
+.end d:quote
+.\" Final space intentional.
+\& 
+..
+.als tt title
+.\" vim: set ft=groff:
