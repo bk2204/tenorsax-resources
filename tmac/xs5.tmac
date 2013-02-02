@@ -38,24 +38,18 @@
 .nr @head 1
 ..
 .de tt
+.ds @title "\\$1
 .start title
-\&\\$1
+\&\\*[@title]
 .end title
 ..
 .de au
-.@meta author "\\$1"
+.ds @author "\\$1
+.@meta author "\\*[@author]"
 ..
 .de slide
-.ie \\n[@head] \{
-.end head
-.start body
-.@layout
-.start div class=presentation
-.\}
-.el \{
-.@next-slide
-.\}
-.nr @head 0
+.ie \\n[@head] .@first-slide
+.el .@next-slide
 .start div class=slide
 .start h1
 \&\\$1
@@ -67,6 +61,21 @@
 .el .end li
 .nr @ul 1
 .start li
+..
+.de @first-slide
+.nr @head 0
+.end head
+.start body
+.@layout
+.start div class=presentation
+.start div class=slide
+.start h1
+\&\\*[@title]
+.end h1
+.start h3
+\&\\*[@author]
+.end h3
+.@next-slide
 ..
 .de @next-slide
 .if \\n[@ul] \{
