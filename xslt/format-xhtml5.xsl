@@ -54,6 +54,24 @@
 		<xsl:apply-templates select=".//text()"/>
 	</xsl:template>
 
+	<xsl:template match="tm:ul">
+		<ul>
+			<xsl:apply-templates/>
+		</ul>
+	</xsl:template>
+
+	<xsl:template match="tm:ol">
+		<ol>
+			<xsl:apply-templates/>
+		</ol>
+	</xsl:template>
+
+	<xsl:template match="tm:li">
+		<li>
+			<xsl:apply-templates/>
+		</li>
+	</xsl:template>
+
 	<xsl:template match="tm:para">
 		<xsl:if test="string-length(normalize-space(.)) > 0">
 			<p>
@@ -118,7 +136,7 @@
 	</xsl:template>
 
 	<xsl:template match="tm:section" name="section">
-		<xsl:variable name="level" select="count(ancestor-or-self::tm:section)+1"/>
+		<xsl:param name="level" select="count(ancestor-or-self::tm:section)+1"/>
 		<div>
 			<xsl:element namespace="http://www.w3.org/1999/xhtml" name="h{$level}">
 				<xsl:apply-templates select="tm:title"/>

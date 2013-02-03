@@ -1,0 +1,56 @@
+.do tenorsax ext 1
+.tenorsax ignore-element _t:block
+.namespace tm http://ns.crustytoothpaste.net/text-markup
+.de @tm-init
+.start tm:root
+.nr @head 1
+..
+.de tt
+.ds @title "\\$1
+.start tm:title
+\&\\*[@title]
+.end tm:title
+..
+.de st
+.ds @subtitle "\\$1
+.start tm:subtitle
+\&\\*[@subtitle]
+.end tm:subtitle
+..
+.de au
+.ds @author "\\$1
+.@tm-start-meta
+.start tm:author
+\&\\*[@author]
+.end tm:author
+..
+.de bu
+.ie !\\n[@ul] .start tm:ul
+.el .end tm:li
+.nr @ul 1
+.start tm:li
+..
+.de pp
+.if \\n[@para] .end tm:para
+.start tm:para
+..
+.de @tm-done
+.end tm:root
+..
+.de @tm-end-section
+.if \\n[@ul] .end tm:ul
+.if \\n[@para] .end tm:para
+.nr @ul 0
+.nr @para 0
+.end tm:section
+..
+.de @tm-start-meta
+.if !\\n[@meta] .start tm:meta
+.nr @meta 1
+..
+.de @tm-end-meta
+.if \\n[@meta] .end tm:meta
+.nr @meta 0
+..
+.als lp pp
+.\" vim: set ft=groff:

@@ -1,92 +1,23 @@
 .do tenorsax ext 1
-.tenorsax ignore-element _t:block
-.namespace "" http://www.w3.org/1999/xhtml
-.doctype html "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
-.de @meta
-.start meta "name=\\$1" "content=\\$2"
-.end meta
-..
-.de @stylesheet
-.start link rel=stylesheet type=text/css "href=ui/\\*[@theme]/\\$1.css" "media=\\$2" "id=\\$3"
-.end link
-..
-.de @emptydiv
-.start div "id=\\$1"
-.end div
-..
-.de @layout
-.start div class=layout
-.@emptydiv controls
-.@emptydiv currentslide
-.@emptydiv header
-.@emptydiv footer
-.end div
-..
+.mso xtm
 .de @init
 .ie !'\\$1'' .ds @theme "\\$1
 .el .ds @theme default
-.start html
-.start head
-.@meta version "S5 1.1"
-.@meta generator "TenorSAX -mxs5"
-.@stylesheet slides projection slideProj
-.@stylesheet outline projection outlineStyle
-.@stylesheet print print slidePrint
-.@stylesheet opera projection operaFix
-.start script "src=ui/\\*[@theme]/slides.js" type=text/javascript
-.end script
-.nr @head 1
-..
-.de tt
-.ds @title "\\$1
-.start title
-\&\\*[@title]
-.end title
-..
-.de au
-.ds @author "\\$1
-.@meta author "\\*[@author]"
+.nr @first-slide 1
+.@tm-init
 ..
 .de slide
-.ie \\n[@head] .@first-slide
-.el .@next-slide
-.start div class=slide
-.start h1
+.@tm-end-meta
+.if !\\n[@first-slide] .@next-slide
+.nr @first-slide 0
+.start tm:section type=slide
+.start tm:title
 \&\\$1
-.end h1
-.start div class=slidecontent
-..
-.de bu
-.ie !\\n[@ul] .start ul
-.el .end li
-.nr @ul 1
-.start li
-..
-.de @first-slide
-.nr @head 0
-.end head
-.start body
-.@layout
-.start div class=presentation
-.start div class=slide
-.start h1
-\&\\*[@title]
-.end h1
-.start h3
-\&\\*[@author]
-.end h3
-.@next-slide
+.end tm:title
 ..
 .de @next-slide
-.if \\n[@ul] \{
-.end li
-.end ul
-.\}
-.end div
-.end div
+.@tm-end-section
 ..
-.de done
-.end html
-..
+.als done @tm-done
 .als presentation @init
 .\" vim: set ft=groff:
