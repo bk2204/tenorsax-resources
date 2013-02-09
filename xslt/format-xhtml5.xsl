@@ -80,6 +80,28 @@
 		</xsl:if>
 	</xsl:template>
 
+	<xsl:template match="tr:inline">
+		<xsl:choose>
+			<xsl:when test="@tr:font-weight = 'bold'">
+				<strong><xsl:call-template name="tr-inline-emphasis"/></strong>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:call-template name="tr-inline-emphasis"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+
+	<xsl:template name="tr-inline-emphasis">
+		<xsl:choose>
+			<xsl:when test="@tr:font-style = 'bold' or @tr:font-variant = 'bold'">
+				<em><xsl:apply-templates/></em>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+
 	<xsl:template match="tm:inline">
 		<xsl:variable name="tagname">
 			<xsl:choose>
