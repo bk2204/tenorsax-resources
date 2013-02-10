@@ -29,6 +29,7 @@
 			<head>
 				<title><xsl:apply-templates select="tm:title"/></title>
 				<meta name="version" content="S5 1.1"/>
+				<xsl:apply-templates select="tm:meta"/>
 				<meta http-equiv="Content-Type"
 					content="application/xhtml+xml; charset=UTF-8"/>
 				<link rel="stylesheet"
