@@ -123,7 +123,8 @@
 			</xsl:if>
 			<div class="slidecontent">
 				<xsl:apply-templates
-					select="tm:*[not(local-name()='section' and @type='handout')]"/>
+					select="tm:*[not(local-name()='section' and @type='handout') and
+						not(local-name()='title')]"/>
 			</div>
 			<xsl:if test="tm:section[@type='handout']">
 				<div class="handout">
