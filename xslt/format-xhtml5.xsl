@@ -93,7 +93,8 @@
 
 	<xsl:template name="tr-inline-emphasis">
 		<xsl:choose>
-			<xsl:when test="@tr:font-style = 'bold' or @tr:font-variant = 'bold'">
+			<xsl:when test="@tr:font-style='italic' or @tr:font-variant='italic'
+					or @tr:font-style='oblique' or @tr:font-variant='oblique'">
 				<em><xsl:apply-templates/></em>
 			</xsl:when>
 			<xsl:otherwise>
