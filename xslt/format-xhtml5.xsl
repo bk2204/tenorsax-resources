@@ -120,15 +120,22 @@
 	</xsl:template>
 
 	<xsl:template match="tm:author" mode="raw">
-		<xsl:apply-templates select="tm:firstname//text()"/>
-		<xsl:if test="tm:middlename">
-			<xsl:text> </xsl:text>
-			<xsl:apply-templates select="tm:middlename//text()"/>
-		</xsl:if>
-		<xsl:if test="tm:lastname">
-			<xsl:text> </xsl:text>
-			<xsl:apply-templates select="tm:lastname//text()"/>
-		</xsl:if>
+		<xsl:choose>
+			<xsl:when test="tm:firstname|tm:middlename|tm:lastname">
+				<xsl:apply-templates select="tm:firstname//text()"/>
+				<xsl:if test="tm:middlename">
+					<xsl:text> </xsl:text>
+					<xsl:apply-templates select="tm:middlename//text()"/>
+				</xsl:if>
+				<xsl:if test="tm:lastname">
+					<xsl:text> </xsl:text>
+					<xsl:apply-templates select="tm:lastname//text()"/>
+				</xsl:if>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates select="./text()"/>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 
 	<xsl:template match="tm:author" mode="rdf">
