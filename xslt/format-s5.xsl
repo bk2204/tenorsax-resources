@@ -5,7 +5,9 @@
 	xmlns:tr="http://ns.crustytoothpaste.net/troff"
 	xmlns:tm="http://ns.crustytoothpaste.net/text-markup"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	exclude-result-prefixes="xh tr tm xsl">
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	exclude-result-prefixes="xh tr tm xsl rdf dc">
 	<xsl:include href="format-xhtml5.xsl"/>
 	<xsl:output method="xml" encoding="UTF-8"
 		doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
