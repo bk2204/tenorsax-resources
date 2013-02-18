@@ -49,7 +49,15 @@
 .nr @meta 1
 ..
 .de @tm-end-meta
-.if \\n[@meta] .end tm:meta
+.if \\n[@meta] \{
+.tenorsax get-version ver
+.tenorsax get-implementation impl
+.start tm:generator "name=TenorSAX (impl \\n[impl])" "version=\\*[ver]"
+.rn ver
+.rr impl
+.end tm:generator
+.end tm:meta
+.\}
 .nr @meta 0
 ..
 .als lp pp
