@@ -106,17 +106,24 @@
 							mode="raw"/></h3>
 				</xsl:if>
 			</div>
-			<xsl:apply-templates select="tm:section[@type='slide']"/>
+			<xsl:apply-templates select="tm:section[@type='slide' or not(@type)]"/>
 		</div>
 	</xsl:template>
 
 	<xsl:template match="tm:section">
-		<xsl:call-template name="section">
-			<xsl:param name="level" select="count(ancestor-or-self::tm:section)+2"/>
-		</xsl:call-template>
+		<xsl:choose>
+			<xsl:when test="not(@type) and count(ancestor-or-self::tm:section) = 1">
+				<xsl:call-template name="slide"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:call-template name="section">
+					<xsl:with-param name="level" select="count(ancestor-or-self::tm:section)+2"/>
+				</xsl:call-template>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 
-	<xsl:template match="tm:section[@type='slide']">
+	<xsl:template name="slide" match="tm:section[@type='slide']">
 		<div class="slide">
 			<h1><xsl:apply-templates select="tm:title"/></h1>
 			<xsl:if test="tm:subtitle">
