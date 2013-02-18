@@ -54,19 +54,19 @@
 		<xsl:apply-templates select=".//text()"/>
 	</xsl:template>
 
-	<xsl:template match="tm:ul">
+	<xsl:template match="tm:itemizedlist">
 		<ul>
 			<xsl:apply-templates/>
 		</ul>
 	</xsl:template>
 
-	<xsl:template match="tm:ol">
+	<xsl:template match="tm:orderedlist">
 		<ol>
 			<xsl:apply-templates/>
 		</ol>
 	</xsl:template>
 
-	<xsl:template match="tm:li">
+	<xsl:template match="tm:listitem">
 		<li>
 			<xsl:apply-templates/>
 		</li>

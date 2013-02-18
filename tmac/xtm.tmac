@@ -25,10 +25,10 @@
 .end tm:author
 ..
 .de bu
-.ie !\\n[@ul] .start tm:ul
-.el .end tm:li
+.ie !\\n[@ul] .start tm:itemizedlist
+.el .end tm:listitem
 .nr @ul 1
-.start tm:li
+.start tm:listitem
 ..
 .de pp
 .if \\n[@para] .end tm:para
@@ -38,7 +38,7 @@
 .end tm:root
 ..
 .de @tm-end-section
-.if \\n[@ul] .end tm:ul
+.if \\n[@ul] .end tm:itemizedlist
 .if \\n[@para] .end tm:para
 .nr @ul 0
 .nr @para 0
