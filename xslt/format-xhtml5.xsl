@@ -72,6 +72,17 @@
 		</li>
 	</xsl:template>
 
+	<xsl:template match="tm:image">
+		<img>
+			<xsl:attribute name="src">
+				<xsl:value-of select="@uri"/>
+			</xsl:attribute>
+			<xsl:attribute name="alt">
+				<xsl:value-of select="@description"/>
+			</xsl:attribute>
+		</img>
+	</xsl:template>
+
 	<xsl:template match="tm:para">
 		<xsl:if test="string-length(normalize-space(.)) > 0">
 			<p>
