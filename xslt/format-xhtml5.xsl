@@ -89,6 +89,10 @@
 		<xsl:call-template name="tm-simple-link"/>
 	</xsl:template>
 
+	<xsl:template match="tm:verbatim">
+		<pre xml:space="preserve"><xsl:apply-templates /></pre>
+	</xsl:template>
+
 	<xsl:template match="tm:image">
 		<img>
 			<xsl:attribute name="src">
