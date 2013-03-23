@@ -72,6 +72,23 @@
 		</li>
 	</xsl:template>
 
+	<xsl:template name="tm-simple-link">
+		<a>
+			<xsl:attribute name="href">
+				<xsl:value-of select="@xl:href"/>
+			</xsl:attribute>
+			<xsl:apply-templates/>
+		</a>
+	</xsl:template>
+
+	<xsl:template match="tm:link[not(@xl:type) and @xl:href]">
+		<xsl:call-template name="tm-simple-link"/>
+	</xsl:template>
+
+	<xsl:template match="tm:link[@xl:type='simple']">
+		<xsl:call-template name="tm-simple-link"/>
+	</xsl:template>
+
 	<xsl:template match="tm:image">
 		<img>
 			<xsl:attribute name="src">
