@@ -94,6 +94,12 @@
 		<pre xml:space="preserve"><xsl:apply-templates /></pre>
 	</xsl:template>
 
+	<xsl:template match="tm:sidebar">
+		<div class="sidebar">
+			<xsl:apply-templates />
+		</div>
+	</xsl:template>
+
 	<xsl:template match="tm:image">
 		<img>
 			<xsl:attribute name="src">

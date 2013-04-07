@@ -174,6 +174,12 @@
 		<literallayout xml:space="preserve"><xsl:apply-templates /></literallayout>
 	</xsl:template>
 
+	<xsl:template match="tm:sidebar">
+		<sidebar>
+			<xsl:apply-templates />
+		</sidebar>
+	</xsl:template>
+
 	<xsl:template match="tm:image">
 		<inlinemediaobject>
 			<xsl:if test="@description">
