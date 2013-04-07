@@ -11,6 +11,7 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:xmp="http://ns.adobe.com/xap/1.0/"
+	xmlns:xl="http://www.w3.org/1999/xlink"
 	exclude-result-prefixes="tm tr d _t _tm">
 	<xsl:output method="xml" encoding="UTF-8"/>
 

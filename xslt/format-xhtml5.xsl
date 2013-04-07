@@ -7,6 +7,7 @@
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:xl="http://www.w3.org/1999/xlink"
 	exclude-result-prefixes="xh tr tm xsl">
 	<xsl:output method="xml" encoding="UTF-8"/>
 
