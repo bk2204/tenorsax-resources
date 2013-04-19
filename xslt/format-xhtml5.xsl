@@ -20,14 +20,48 @@
 	<xsl:template match="node()|@*" mode="rdf"/>
 	<xsl:template match="node()|@*" mode="body"/>
 
+	<xsl:template name="insert-id-fixup">
+		<script>
+			//<![CDATA[
+			// Make id attributes for browsers that don't understand xml:id.
+			(function () {
+				var id_fixup = function () {
+					if (document.getElementById("content"))
+						return;
+					var treewalker = document.createTreeWalker(
+						document.body,
+						NodeFilter.SHOW_ELEMENT,
+						{
+							acceptNode: function(node) {
+								return node.getAttributeNS("http://www.w3.org/XML/1998/namespace",
+									"id") ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+							}
+						},
+						false
+					);
+					while (treewalker.nextNode()) {
+						var cur = treewalker.currentNode;
+						var attr = document.createAttributeNS(null, "id");
+						attr.nodeValue = cur.getAttributeNS("http://www.w3.org/XML/1998/namespace", "id");
+						cur.setAttributeNode(attr);
+
+					}
+				};
+				window.addEventListener("load", id_fixup, false);
+			})();
+			//]]>
+		</script>
+	</xsl:template>
+
 	<xsl:template match="tm:root">
 		<html>
 			<head>
 				<title><xsl:apply-templates select="tm:title"/></title>
 				<link rel="stylesheet" href="default.css"/>
+				<xsl:call-template name="insert-id-fixup"/>
 				<xsl:apply-templates select="tm:meta"/>
 			</head>
-			<body class="article">
+			<body class="article" name="body">
 				<xsl:call-template name="body-header"/>
 			</body>
 		</html>
@@ -102,6 +136,7 @@
 
 	<xsl:template match="tm:image">
 		<img>
+			<xsl:apply-templates select="@xml:id"/>
 			<xsl:attribute name="src">
 				<xsl:value-of select="@uri"/>
 			</xsl:attribute>
@@ -112,7 +147,7 @@
 	</xsl:template>
 
 	<xsl:template match="tm:para">
-		<xsl:if test="string-length(normalize-space(.)) > 0">
+		<xsl:if test="string-length(normalize-space(.)) > 0 or @*">
 			<p>
 				<xsl:apply-templates/>
 			</p>
@@ -207,6 +242,7 @@
 	<xsl:template match="tm:section" name="section">
 		<xsl:param name="level" select="count(ancestor-or-self::tm:section)+1"/>
 		<div>
+			<xsl:apply-templates select="@*"/>
 			<xsl:element namespace="http://www.w3.org/1999/xhtml" name="h{$level}">
 				<xsl:apply-templates select="tm:title"/>
 			</xsl:element>
