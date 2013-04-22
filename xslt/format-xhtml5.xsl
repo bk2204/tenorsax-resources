@@ -84,6 +84,21 @@
 			<rdf:Description rdf:about="">
 				<xsl:apply-templates mode="rdf"/>
 			</rdf:Description>
+			<xsl:for-each select="//tm:blockquote[@xml:id and tm:meta]">
+				<rdf:Description>
+					<xsl:attribute name="rdf:about">
+						<xsl:text>#</xsl:text><xsl:value-of select="@xml:id"/>
+					</xsl:attribute>
+					<xsl:if test="tm:meta/tm:attribution">
+						<dc:creator><xsl:apply-templates
+								select="tm:meta/tm:attribution/text()"/></dc:creator>
+					</xsl:if>
+					<xsl:if test="tm:meta/tm:source">
+						<dc:source><xsl:apply-templates
+								select="tm:meta/tm:source/text()"/></dc:source>
+					</xsl:if>
+				</rdf:Description>
+			</xsl:for-each>
 			<xsl:copy-of select="rdf:RDF/*"/>
 		</rdf:RDF>
 	</xsl:template>
