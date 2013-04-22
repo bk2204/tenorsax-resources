@@ -125,7 +125,29 @@
 	</xsl:template>
 
 	<xsl:template match="tm:verbatim">
-		<pre xml:space="preserve"><xsl:apply-templates /></pre>
+		<xsl:choose>
+			<xsl:when test="@type = 'monospace'">
+				<pre xml:space="preserve"><xsl:apply-templates /></pre>
+			</xsl:when>
+			<xsl:otherwise>
+				<p xml:space="preserve"
+					style="white-space: pre"><xsl:apply-templates /></p>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+
+	<xsl:template match="tm:blockquote">
+		<blockquote>
+			<xsl:apply-templates select="@*|*[not(tm:meta)]"/>
+			<xsl:if test="tm:meta">
+				<div class="source-meta">
+					― <xsl:apply-templates select="tm:meta/tm:attribution"/><xsl:if
+						test="tm:meta/tm:source">, <xsl:apply-templates
+							select="tm:meta/tm:source"/>
+					</xsl:if>
+				</div>
+			</xsl:if>
+		</blockquote>
 	</xsl:template>
 
 	<xsl:template match="tm:sidebar">
